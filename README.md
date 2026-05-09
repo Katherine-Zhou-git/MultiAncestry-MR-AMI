@@ -1,7 +1,6 @@
 # MultiAncestry-MR-AMIMendelian Randomization Analysis Pipeline
 Project: COVID-19 and Acute Myocardial Infarction (AMI)
-Author: Katherine Zhou
-Date: 2026-01-09
+
 
 This repository contains a reproducible R pipeline for two-sample Mendelian randomization analyses of COVID-19 exposures and acute myocardial infarction outcomes across ancestry-specific datasets.
 
