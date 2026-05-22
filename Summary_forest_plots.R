@@ -1,5 +1,5 @@
 # ================================================
-# Summary Forest Plots - Multi-Ancestry COVID-19 vs AMI
+# Summary Forest Plots - Multi-Ancestry COVID-19 and AMI
 # ================================================
 
 library(ggplot2)
