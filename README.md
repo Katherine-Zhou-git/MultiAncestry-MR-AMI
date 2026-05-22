@@ -2,10 +2,16 @@
 
 This repository contains the R code for a **multi-ancestry two-sample Mendelian Randomization (MR)** study examining the causal relationship between COVID-19 phenotypes and acute myocardial infarction (AMI) across European, East Asian, South Asian, and African ancestries.
 
-## Key Findings
-- Significant **inverse causal association** between severe and hospitalized COVID-19 with AMI risk in **European ancestry**.
-- Consistent directional (inverse) patterns observed across ancestries.
-- Suggests that the increased AMI risk observed in clinical settings is likely driven by acute inflammatory and coagulopathic mechanisms rather than long-term genetic liability.
+## Outputs
+For each dataset, the pipeline creates:
+
+MR estimates
+Odds ratio table
+Single-SNP results
+Heterogeneity test results
+Horizontal pleiotropy test results
+MR-PRESSO summary
+Scatter, forest, leave-one-out, and funnel plots
 
 ## Repository Structure
 
