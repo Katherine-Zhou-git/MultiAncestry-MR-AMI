@@ -12,7 +12,7 @@ Heterogeneity test results
 Horizontal pleiotropy test results
 MR-PRESSO summary
 Scatter, forest, leave-one-out, and funnel plots
-
+```
 ## Repository Structure
 
 ```bash
