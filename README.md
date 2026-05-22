@@ -1,97 +1,67 @@
-# MultiAncestry-MR-AMI
-## Mendelian Randomization Analysis Pipeline
+# Multi-Ancestry Mendelian Randomization: COVID-19 and Acute Myocardial Infarction (AMI)
 
-**Project:** COVID-19 and Acute Myocardial Infarction (AMI)
+This repository contains the R code for a **multi-ancestry two-sample Mendelian Randomization (MR)** study examining the causal relationship between COVID-19 phenotypes and acute myocardial infarction (AMI) across European, East Asian, South Asian, and African ancestries.
 
-This repository contains a reproducible R pipeline for two-sample Mendelian randomization analyses of COVID-19 exposures and acute myocardial infarction outcomes across ancestry-specific datasets.
+## Key Findings
+- Significant **inverse causal association** between severe and hospitalized COVID-19 with AMI risk in **European ancestry**.
+- Consistent directional (inverse) patterns observed across ancestries.
+- Suggests that the increased AMI risk observed in clinical settings is likely driven by acute inflammatory and coagulopathic mechanisms rather than long-term genetic liability.
 
----
+## Repository Structure
 
-# Repository Structure
 
-```text
-.
-├── config/
-│   └── analysis_plan.csv
-├── data/
-│   └── README.md
-├── results/
-│   └── .gitkeep
+COVID19-AMI-MultiAncestry-MR/
+├── README.md
+├── requirements.R
+├── run_all.R
 ├── scripts/
-│   ├── install_packages.R
-│   └── run_mr_analysis.R
-├── .gitignore
-└── README.md
-```
+│   ├── EUR_A2.R
+│   ├── EUR_B2.R
+│   ├── EUR_C2.R
+│   ├── EAS_A2.R
+│   ├── EAS_B2.R
+│   ├── EAS_C2.R
+│   ├── SAS_A2.R
+│   ├── SAS_B2.R
+│   ├── SAS_C2.R
+│   ├── AFR_A2.R
+│   ├── AFR_B2.R
+│   └── AFR_C2.R
+├── summary_forest_plots.R
+├── results/
+│   ├── tables/          # MR results (CSV)
+│   └── figures/         # Scatter, forest, funnel, leave-one-out plots
+├── data/                # GWAS summary statistics (not included)
+└── .gitignore
+How to Run
+Bash# 1. Install required packages
+Rscript requirements.R
 
----
+# 2. Run all MR analyses
+Rscript run_all.R
 
-# Input Data
+# 3. Generate summary forest plots
+Rscript summary_forest_plots.R
+Requirements
 
-Place harmonized TwoSampleMR-ready CSV files in the `data/` folder.
+R version ≥ 4.2.0
+PLINK (for LD clumping)
+Key R packages:
+TwoSampleMR
+MendelianRandomization
+MRPRESSO (for outlier detection)
+data.table, tidyverse, ggplot2, patchwork, kableExtra
 
-The default analysis plan expects these files:
 
-```text
-eur-A2-GCST90473536.csv
-eur-B2-GCST90473536.csv
-eur-C2-GCST90473536.csv
+See requirements.R for automatic installation.
+Data Sources
 
-sas-A2-GCST90473537.csv
-sas-B2-GCST90473537.csv
-sas-C2-GCST90473537.csv
+COVID-19 GWAS: COVID-19 Host Genetics Initiative (HGI)
+AMI GWAS: UK Biobank & Biobank Japan
 
-eas_A2_AMI_GCST90018657.csv
-eas_B2_AMI_GCST90018657.csv
-eas_C2_AMI_GCST90018657.csv
+Analysis Details
 
-afr_A2_COIVD-19_AMIGCST90473535.csv
-afr_B2_COIVD-19_AMIGCST90473535.csv
-afr_C2_COIVD-19_AMIGCST90473535.csv
-```
-
-The files are not committed by default because GWAS summary or harmonized data files may be large or access-controlled.
-
----
-
-# Install Dependencies
-
-From the project root:
-
-```r
-source("scripts/install_packages.R")
-```
-
-Some MR packages may require Bioconductor or GitHub installation depending on your R setup. The install script handles common CRAN, Bioconductor, and GitHub sources.
-
----
-
-# Run the Analysis
-
-```r
-source("scripts/run_mr_analysis.R")
-```
-
-By default, the script reads `config/analysis_plan.csv`, loads each listed CSV from `data/`, filters invalid instruments, runs MR-PRESSO, performs MR analyses, and writes tables and plots to `results/`.
-
----
-
-# Outputs
-
-For each dataset listed in the analysis plan, the pipeline creates:
-
-- MR estimates
-- Odds ratio table
-- Single-SNP results
-- Heterogeneity test results
-- Horizontal pleiotropy test results
-- MR-PRESSO summary
-- Scatter, forest, leave-one-out, and funnel plots
-
----
-
-# Notes
-
-- The original local `setwd()` calls were removed so the project can run on any computer.
-- The original script repeatedly reassigned `mr_dat`; this pipeline runs each CSV as a separate analysis.
-- Edit `config/analysis_plan.csv` to add, remove, or rename analyses.
+Exposure: Three COVID-19 phenotypes (A2: Very Severe, B2: Hospitalized, C2: Infected)
+Outcome: Acute Myocardial Infarction (AMI)
+Methods: IVW (fixed/random), MR-Egger, Weighted Median, Weighted Mode, MR-PRESSO
+Sensitivity analyses: Heterogeneity, pleiotropy, leave-one-out, funnel plots
