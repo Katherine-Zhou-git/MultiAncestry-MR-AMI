@@ -34,10 +34,6 @@ COVID19-AMI-MultiAncestry-MR/
 │   ├── AFR_B2.R
 │   └── AFR_C2.R
 ├── summary_forest_plots.R
-├── results/
-│   ├── tables/          # MR results (CSV)
-│   └── figures/         # Scatter, forest, funnel, leave-one-out plots
-├── data/                # GWAS summary statistics (not included)
 └── .gitignore
 How to Run
 Bash# 1. Install required packages
