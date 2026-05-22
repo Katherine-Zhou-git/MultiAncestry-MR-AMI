@@ -77,12 +77,12 @@ odd <- generate_odds_ratios(res)
 write.csv(odd, "results/tables/EUR_A2_results.csv", row.names = FALSE)
 
 # Plots
-ggsave("results/figures/EUR_A2_scatter.png", mr_scatter_plot(res, mr_dat)[[1]], width=8, height=6)
-ggsave("results/figures/EUR_A2_forest.png", mr_forest_plot(mr_singlesnp(mr_dat))[[1]], width=10, height=8)
-ggsave("results/figures/EUR_A2_leaveoneout.png", mr_leaveoneout_plot(mr_leaveoneout(mr_dat))[[1]], width=10, height=8)
-ggsave("results/figures/EUR_A2_funnel.png", mr_funnel_plot(mr_singlesnp(mr_dat))[[1]], width=8, height=6)
+ggsave("results/figures/EUR_B2_scatter.png", mr_scatter_plot(res, mr_dat)[[1]], width=8, height=6)
+ggsave("results/figures/EUR_B2_forest.png", mr_forest_plot(mr_singlesnp(mr_dat))[[1]], width=10, height=8)
+ggsave("results/figures/EUR_B2_leaveoneout.png", mr_leaveoneout_plot(mr_leaveoneout(mr_dat))[[1]], width=10, height=8)
+ggsave("results/figures/EUR_B2_funnel.png", mr_funnel_plot(mr_singlesnp(mr_dat))[[1]], width=8, height=6)
 
 mr_heterogeneity(mr_dat)
 mr_pleiotropy_test(mr_dat)
 
-cat("✅ EUR A2 Completed\n")
+cat("EUR B2 Completed\n")
