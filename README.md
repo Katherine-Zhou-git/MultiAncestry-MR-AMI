@@ -63,7 +63,8 @@ AMI GWAS: UK Biobank & Biobank Japan
 
 Analysis Details
 
-Exposure: Three COVID-19 phenotypes (A2: Very Severe, B2: Hospitalized, C2: Infected)
+Exposure: Three COVID-19 phenotypes
+(A2: Very Severe, B2: Hospitalized, C2: Infected)
 Outcome: Acute Myocardial Infarction (AMI)
 Methods: IVW (fixed/random), MR-Egger, Weighted Median, Weighted Mode, MR-PRESSO
 Sensitivity analyses: Heterogeneity, pleiotropy, leave-one-out, funnel plots
