@@ -4,14 +4,14 @@ This repository contains the R code for a **multi-ancestry two-sample Mendelian 
 
 ## Outputs
 For each dataset, the pipeline creates:
-
-###### MR estimates
-###### Odds ratio table
-###### Single-SNP results
-###### Heterogeneity test results
-###### Horizontal pleiotropy test results
-###### MR-PRESSO summary
-###### Scatter, forest, leave-one-out, and funnel plots
+```bash
+MR estimates
+Odds ratio table
+Single-SNP results
+Heterogeneity test results
+Horizontal pleiotropy test results
+MR-PRESSO summary
+Scatter, forest, leave-one-out, and funnel plots
 
 ## Repository Structure
 
