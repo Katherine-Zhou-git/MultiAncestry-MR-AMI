@@ -9,7 +9,7 @@ This repository contains the R code for a **multi-ancestry two-sample Mendelian 
 
 ## Repository Structure
 
-
+```bash
 COVID19-AMI-MultiAncestry-MR/
 ├── README.md
 ├── requirements.R
@@ -65,3 +65,8 @@ Exposure: Three COVID-19 phenotypes (A2: Very Severe, B2: Hospitalized, C2: Infe
 Outcome: Acute Myocardial Infarction (AMI)
 Methods: IVW (fixed/random), MR-Egger, Weighted Median, Weighted Mode, MR-PRESSO
 Sensitivity analyses: Heterogeneity, pleiotropy, leave-one-out, funnel plots
+
+Citation
+If you use this code in your research, please cite the original manuscript (once published).
+License
+MIT License
