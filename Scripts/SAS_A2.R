@@ -70,12 +70,14 @@ results <- mr_presso(BetaOutcome = "beta.outcome", BetaExposure = "beta.exposure
 
 cat("Global test p =", results$`MR-PRESSO results`$`Global Test`$Pvalue, "\n")
 
-
-res <- mr(mr_dat, method_list = c("mr_egger_regression", "mr_weighted_median",
-                                  "mr_ivw_fe", "mr_ivw_mre", "mr_weighted_mode"))
-
-odd <- generate_odds_ratios(res)
-write.csv(odd, "results/tables/SAS_A2_results.csv", row.names = FALSE)
+# ==================== Main MR Analysis ====================
+res <- mr(mr_dat, method_list = c(
+  "mr_egger_regression",
+  "mr_weighted_median",
+  "mr_ivw_fe",
+  "mr_ivw_mre",
+  "mr_weighted_mode"
+))
 
 # Save results
 odd <- generate_odds_ratios(res)
