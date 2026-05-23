@@ -70,11 +70,21 @@ res <- mr(mr_dat, method_list = c("mr_egger_regression", "mr_weighted_median",
                                   "mr_ivw_fe", "mr_ivw_mre", "mr_weighted_mode"))
 
 odd <- generate_odds_ratios(res)
-write.csv(odd, "results/tables/SAS_C2_results.csv", row.names = FALSE)
+write.csv(odd, "results/tables/SAS_A2_results.csv", row.names = FALSE)
 
-ggsave("results/figures/SAS_C2_scatter.png", mr_scatter_plot(res, mr_dat)[[1]], width = 8, height = 6)
+# Save results
+odd <- generate_odds_ratios(res)
+write.csv(odd, "results/tables/SAS_A2_results.csv", row.names = FALSE)
 
+# ==================== Plots ====================
+ggsave("results/figures/SAS_A2_scatter.png", mr_scatter_plot(res, mr_dat)[[1]], width = 8, height = 6)
+ggsave("results/figures/SAS_A2_forest.png", mr_forest_plot(mr_singlesnp(mr_dat))[[1]], width = 10, height = 8)
+ggsave("results/figures/SAS_A2_leaveoneout.png", mr_leaveoneout_plot(mr_leaveoneout(mr_dat))[[1]], width = 10, height = 8)
+ggsave("results/figures/SAS_A2_funnel.png", mr_funnel_plot(mr_singlesnp(mr_dat))[[1]], width = 8, height = 6)
+
+# ==================== Sensitivity Tests ====================
 mr_heterogeneity(mr_dat)
 mr_pleiotropy_test(mr_dat)
 
-cat("✅ SAS C2 Analysis Completed Successfully\n")
+
+cat("SAS A2 Analysis Completed Successfully\n")
