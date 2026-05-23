@@ -61,10 +61,15 @@ mr_dat <- harmonise_data(
 mr_dat$outcome[mr_dat$outcome == "ami"] <- "AMI"
 mr_dat <- mr_dat[mr_dat$mr_keep == TRUE & mr_dat$palindromic != TRUE, ]
 
+
+# ==================== MR-PRESSO ====================
 results <- mr_presso(BetaOutcome = "beta.outcome", BetaExposure = "beta.exposure",
                      SdOutcome = "se.outcome", SdExposure = "se.exposure",
                      OUTLIERtest = TRUE, DISTORTIONtest = TRUE, data = mr_dat,
                      NbDistribution = length(mr_dat$SNP)/0.05, SignifThreshold = 0.05)
+
+cat("Global test p =", results$`MR-PRESSO results`$`Global Test`$Pvalue, "\n")
+
 
 res <- mr(mr_dat, method_list = c("mr_egger_regression", "mr_weighted_median",
                                   "mr_ivw_fe", "mr_ivw_mre", "mr_weighted_mode"))
