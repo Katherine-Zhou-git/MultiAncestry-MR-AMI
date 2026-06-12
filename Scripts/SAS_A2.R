@@ -22,7 +22,7 @@ set.seed(123456)
 setwd("./COVID_GWAS")
 
 # Exposure: Infection (C2) - South Asian
-exposure_raw <- fread("./COVID-19_AMI_All/COVID19_HGI_C2_ALL_sas_leave23andme_20220403.tsv.gz")
+exposure_raw <- fread("./COVID-19_AMI_All/COVID19_HGI_A2_ALL_sas_leave23andme_20220403.tsv.gz")
 exposure_c1 <- exposure_raw[, c(1,2,3,4,5,6,7,8,9,14,15)]
 colnames(exposure_c1) <- c("CHR","POS","other_allele.exposure","effect_allele.exposure",
                           "SNP","N","beta.exposure","se.exposure","pval","eaf.exposure","rsid")
