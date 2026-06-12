@@ -1,10 +1,9 @@
 # ================================================
-# South Asian - COVID-19 Infection (C2) vs AMI
+# South Asian - COVID-19 Infection (A2) vs AMI
 # ================================================
 
 library(data.table)
 library(MendelianRandomization)
-library(MRPracticals)
 library(TwoSampleMR)
 library(LDlinkR)
 library(dplyr)
@@ -14,21 +13,23 @@ library(ieugwasr)
 library(genetics.binaRies)
 library(kableExtra)
 library(gt)
-library(phenoscanner)
 library(R.utils)
+library(MRPRESSO)
+#library(phenoscanner)
+#library(MRPracticals)
 
 rm(list = ls(all=TRUE))
 set.seed(123456)
 setwd("./COVID_GWAS")
 
-# Exposure: Infection (C2) - South Asian
+# Exposure: Infection (A2) - South Asian
 exposure_raw <- fread("./COVID-19_AMI_All/COVID19_HGI_A2_ALL_sas_leave23andme_20220403.tsv.gz")
 exposure_c1 <- exposure_raw[, c(1,2,3,4,5,6,7,8,9,14,15)]
 colnames(exposure_c1) <- c("CHR","POS","other_allele.exposure","effect_allele.exposure",
                           "SNP","N","beta.exposure","se.exposure","pval","eaf.exposure","rsid")
 
-exposure_c1$exposure <- "Infected_COVID19_C2_SAS"
-exposure_c1$id.exposure <- "covid_c2_sas"
+exposure_c1$exposure <- "Infected_COVID19_A2_SAS"
+exposure_c1$id.exposure <- "covid_a2_sas"
 exposure_c1$Z.exposure <- exposure_c1$beta.exposure / exposure_c1$se.exposure
 exposure_c1 <- filter(exposure_c1, pval < 5e-6)
 exposure_c1$F.exposure <- (exposure_c1$Z.exposure)^2
