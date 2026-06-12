@@ -27,8 +27,8 @@ exposure_c1 <- exposure_raw[, c(1,2,3,4,5,6,7,8,9,14,15)]
 colnames(exposure_c1) <- c("CHR","POS","other_allele.exposure","effect_allele.exposure",
                           "SNP","N","beta.exposure","se.exposure","pval","eaf.exposure","rsid")
 
-exposure_c1$exposure <- "Severe_COVID19_A2_EAS"
-exposure_c1$id.exposure <- "covid_a2_eas"
+exposure_c1$exposure <- "Severe_COVID19_C2_EAS"
+exposure_c1$id.exposure <- "covid_c2_eas"
 exposure_c1$Z.exposure <- exposure_c1$beta.exposure / exposure_c1$se.exposure
 exposure_c1 <- filter(exposure_c1, pval < 5e-6)   # Lower threshold for non-European
 exposure_c1$F.exposure <- (exposure_c1$Z.exposure)^2
@@ -100,7 +100,7 @@ res <- mr(mr_dat, method_list = c(
 
 # Save results
 odd <- generate_odds_ratios(res)
-write.csv(odd, "results/tables/EAS_A2_results.csv", row.names = FALSE)
+write.csv(odd, "results/tables/EAS_C2_results.csv", row.names = FALSE)
 
 # ==================== Plots ====================
 ggsave("results/figures/EAS_C2_scatter.png", mr_scatter_plot(res, mr_dat)[[1]], width = 8, height = 6)
