@@ -2,7 +2,10 @@
 # Run All Analyses - Multi-Ancestry COVID-19 vs AMI Mendelian Randomization
 # ================================================
 
-cat("🚀 Starting Multi-Ancestry COVID-19 vs AMI MR Analysis...\n")
+dir.create("results/tables",  showWarnings = FALSE, recursive = TRUE)
+dir.create("results/figures", showWarnings = FALSE, recursive = TRUE)
+
+cat("Starting Multi-Ancestry COVID-19 vs AMI MR Analysis...\n")
 cat("==================================================\n\n")
 
 # ==================== EUROPEAN ANCESTRY ====================
