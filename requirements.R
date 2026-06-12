@@ -21,8 +21,9 @@ BiocManager::install(c("TwoSampleMR", "MendelianRandomization"),
                      update = FALSE, ask = FALSE, quiet = TRUE)
 
 # Optional: MR-PRESSO (if not already installed)
-# Uncomment the line below if you need MR-PRESSO
-# devtools::install_github("rondolab/MR-PRESSO")
+if (!requireNamespace("MRPRESSO", quietly = TRUE)) {
+  devtools::install_github("rondolab/MR-PRESSO")
+}
 
 cat("\n✅ All core packages installed successfully!\n")
 cat("You may need to manually install 'genetics.binaRies' and 'MRPracticals' if not available.\n")
