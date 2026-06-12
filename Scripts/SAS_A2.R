@@ -28,14 +28,14 @@ exposure_c1 <- exposure_raw[, c(1,2,3,4,5,6,7,8,9,14,15)]
 colnames(exposure_c1) <- c("CHR","POS","other_allele.exposure","effect_allele.exposure",
                           "SNP","N","beta.exposure","se.exposure","pval","eaf.exposure","rsid")
 
-exposure_c1$exposure <- "Severe_COVID19_A2_SAS" 
+exposure_c1$exposure <- "Very_Severe_COVID19_A2_SAS" 
 exposure_c1$id.exposure <- "covid_a2_sas"
 exposure_c1$Z.exposure <- exposure_c1$beta.exposure / exposure_c1$se.exposure
 exposure_c1 <- filter(exposure_c1, pval < 5e-6)
 exposure_c1$F.exposure <- (exposure_c1$Z.exposure)^2
 
 exposure_snps <- ld_clump(dat = exposure_c1, clump_kb = 10000, clump_r2 = 0.001,
-                          plink_bin = genetics.binaRies::get_plink_binary(), bfile = "./SAS")
+                          plink_bin = genetics.binaRies::get_plink_binary(), bfile = "./1kg.v3/SAS")
 
 # Outcome
 outcome_raw <- fread("./COVID-19_AMI_All/GCST90473537.h.tsv.gz")
