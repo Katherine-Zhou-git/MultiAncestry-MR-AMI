@@ -1,5 +1,5 @@
 # ================================================
-# South Asian - Hospitalized COVID-19 (B2) vs AMI
+# South Asian - Hospitalized COVID-19 (B2) vs AMI 
 # ================================================
 
 library(data.table)
