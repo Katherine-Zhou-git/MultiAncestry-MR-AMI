@@ -23,10 +23,10 @@ set.seed(123456)
 setwd("./COVID_GWAS")
 
 # Exposure: Very Severe COVID-19 (A2) - South Asian
-exposure_raw <- fread("./COVID-19_AMI_All/COVID19_HGI_A2_ALL_sas_leave23andme_20220403.tsv.gz")
+exposure_raw <- fread("./COVID_GWAS/COVID-19_AMI_All/COVID19_HGI_A2_ALL_sas_leave23andme_20220403.tsv.gz")
 exposure_c1 <- exposure_raw[, c(1,2,3,4,5,6,7,8,9,14,15)]
 colnames(exposure_c1) <- c("CHR","POS","other_allele.exposure","effect_allele.exposure",
-                          "SNP","N","beta.exposure","se.exposure","pval","eaf.exposure","rsid")
+                           "SNP","N","beta.exposure","se.exposure","pval","eaf.exposure","rsid")
 
 exposure_c1$exposure <- "Very_Severe_COVID19_A2_SAS" 
 exposure_c1$id.exposure <- "covid_a2_sas"
@@ -35,13 +35,13 @@ exposure_c1 <- filter(exposure_c1, pval < 5e-6)
 exposure_c1$F.exposure <- (exposure_c1$Z.exposure)^2
 
 exposure_snps <- ld_clump(dat = exposure_c1, clump_kb = 10000, clump_r2 = 0.001,
-                          plink_bin = genetics.binaRies::get_plink_binary(), bfile = "./1kg.v3/SAS")
+                          plink_bin = genetics.binaRies::get_plink_binary(), bfile = "./COVID_GWAS/1kg.v3/SAS")
 
 # Outcome
-outcome_raw <- fread("./COVID-19_AMI_All/GCST90473537.h.tsv.gz")
+outcome_raw <- fread("./COVID_GWAS/GCST90473537.h.tsv.gz")
 outcome_ss1 <- outcome_raw[, c(1,2,3,4,5,6,7,8,9)]
 colnames(outcome_ss1) <- c("CHR","POS","effect_allele.outcome","other_allele.outcome",
-                          "beta.outcome","se.outcome","eaf.outcome","pval","rsid")
+                           "beta.outcome","se.outcome","eaf.outcome","pval","rsid")
 outcome_ss1$outcome <- "AMI"
 outcome_ss1$id.outcome <- "ami_sas"
 outcome_ss1$Z.outcome <- outcome_ss1$beta.outcome / outcome_ss1$se.outcome
@@ -82,13 +82,21 @@ res <- mr(mr_dat, method_list = c(
 
 # Save results
 odd <- generate_odds_ratios(res)
-write.csv(odd, "results/tables/SAS_A2_results.csv", row.names = FALSE)
+write.csv(odd, "./COVID_GWAS/SAS_A2_results.csv", row.names = FALSE)
 
 # ==================== Plots ====================
-ggsave("results/figures/SAS_A2_scatter.png", mr_scatter_plot(res, mr_dat)[[1]], width = 8, height = 6)
-ggsave("results/figures/SAS_A2_forest.png", mr_forest_plot(mr_singlesnp(mr_dat))[[1]], width = 10, height = 8)
-ggsave("results/figures/SAS_A2_leaveoneout.png", mr_leaveoneout_plot(mr_leaveoneout(mr_dat))[[1]], width = 10, height = 8)
-ggsave("results/figures/SAS_A2_funnel.png", mr_funnel_plot(mr_singlesnp(mr_dat))[[1]], width = 8, height = 6)
+singlesnp_res <- mr_singlesnp(mr_dat, all_method = c(
+  "mr_egger_regression",
+  "mr_weighted_median",
+  "mr_ivw_fe",
+  "mr_ivw_mre",
+  "mr_weighted_mode"
+))
+
+ggsave("./COVID_GWAS/SAS_A2_scatter.png", mr_scatter_plot(res, mr_dat)[[1]], width = 8, height = 6)
+ggsave("./COVID_GWAS/SAS_A2_forest.png", mr_forest_plot(singlesnp_res)[[1]], width = 10, height = 8)
+ggsave("./COVID_GWAS/SAS_A2_leaveoneout.png", mr_leaveoneout_plot(mr_leaveoneout(mr_dat))[[1]], width = 10, height = 8)
+ggsave("./COVID_GWAS/SAS_A2_funnel.png", mr_funnel_plot(singlesnp_res)[[1]], width = 8, height = 6)
 
 # ==================== Sensitivity Tests ====================
 mr_heterogeneity(mr_dat)
