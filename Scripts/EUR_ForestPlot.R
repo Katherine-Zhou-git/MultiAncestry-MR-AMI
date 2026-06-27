@@ -3,14 +3,14 @@ library(dplyr)
 library(patchwork)
 
 data_euro <- data.frame(
-  Phenotype = factor(rep(c("COVID-19 susceptibility", "Hospitalized COVID-19", "Very Severe COVID-19"), each = 5),
-                     levels = c("COVID-19 susceptibility", "Hospitalized COVID-19", "Very Severe COVID-19")),
+  Phenotype = factor(rep(c("COVID-19 Infection", "Hospitalized COVID-19", "Very Severe COVID-19"), each = 5),
+                     levels = c("COVID-19 Infection", "Hospitalized COVID-19", "Very Severe COVID-19")),
   
   Method = factor(rep(c("MR Egger", "Weighted Median", "IVW (Fixed)", "IVW (Random)", "Weighted Mode"), 3),
                   levels = rev(c("IVW (Fixed)", "IVW (Random)", "Weighted Median", "Weighted Mode", "MR Egger"))),
   
   OR = c(
-    # C2 - COVID-19 susceptibility
+    # C2 - COVID-19 Infection
     0.9750433594, 0.946078866, 0.9217779187, 0.9217779187, 0.940398275,
     # B2 - Hospitalized
     0.9861703958, 0.9681659895, 0.9417101058, 0.9417101058, 0.972723204,
@@ -99,12 +99,12 @@ p_forest <- ggplot(table_data, aes(x = OR, y = Method)) +
   geom_point(aes(color = Phenotype), size = 2.5) +
   facet_grid(Phenotype ~ ., scales = "free_y", space = "free_y") +
   scale_shape_manual(values = c(
-    "COVID-19 susceptibility" = 16,
+    "COVID-19 Infection" = 16,
     "Hospitalized COVID-19"   = 15,
     "Very Severe COVID-19"    = 18
   )) +
   scale_color_manual(values = c(
-    "COVID-19 susceptibility" = "#FE9929",
+    "COVID-19 Infection" = "#FE9929",
     "Hospitalized COVID-19"   = "#FE9929",
     "Very Severe COVID-19"    = "#FE9929"
   )) +
