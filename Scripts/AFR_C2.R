@@ -15,6 +15,8 @@ library(kableExtra)
 library(gt)
 library(R.utils)
 library(MRPRESSO)
+#library(phenoscanner)
+#library(MRPracticals)
 
 rm(list = ls(all=TRUE))
 set.seed(123456)
