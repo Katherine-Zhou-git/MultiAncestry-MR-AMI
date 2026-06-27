@@ -2,9 +2,6 @@
 # Run All Analyses - Multi-Ancestry COVID-19 vs AMI Mendelian Randomization
 # ================================================
 
-dir.create("results/tables",  showWarnings = FALSE, recursive = TRUE)
-dir.create("results/figures", showWarnings = FALSE, recursive = TRUE)
-
 cat("Starting Multi-Ancestry COVID-19 vs AMI MR Analysis...\n")
 cat("==================================================\n\n")
 
@@ -43,4 +40,3 @@ cat("Summary Forest Plots Generated\n\n")
 
 cat("==================================================\n")
 cat("ALL ANALYSES COMPLETED SUCCESSFULLY!\n")
-cat("Results are saved in 'results/tables/' and 'results/figures/'\n")
