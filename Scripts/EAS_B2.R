@@ -64,15 +64,16 @@ mr_dat <- harmonise_data(
 mr_dat$outcome[mr_dat$outcome == "ami"] <- "AMI"
 mr_dat <- mr_dat[mr_dat$mr_keep == TRUE & mr_dat$palindromic != TRUE, ]
 
-# ==================== MR-PRESSO ====================
+# ==================== MR-PRESSO (Initial Run) ====================
+# First run to detect and remove outliers
 results <- mr_presso(BetaOutcome = "beta.outcome", BetaExposure = "beta.exposure",
                      SdOutcome = "se.outcome", SdExposure = "se.exposure",
                      OUTLIERtest = TRUE, DISTORTIONtest = TRUE, data = mr_dat,
                      NbDistribution = length(mr_dat$SNP)/0.05, SignifThreshold = 0.05)
 
-cat("Global test p =", results$`MR-PRESSO results`$`Global Test`$Pvalue, "\n")
+cat("Initial PRESSO Global test p =", results$`MR-PRESSO results`$`Global Test`$Pvalue, "\n")
 
-# Remove MR-PRESSO outliers if global test significant
+# Remove MR-PRESSO outliers if detected
 outlier_indices <- results$`MR-PRESSO results`$`Distortion Test`$`Outliers Indices`
 
 if (!is.null(outlier_indices)) {
@@ -82,6 +83,18 @@ if (!is.null(outlier_indices)) {
 } else {
   cat("No outliers detected - proceeding with all SNPs\n")
 }
+
+cat("Number of SNPs after outlier removal:", nrow(mr_dat), "\n")
+cat("SNPs used:", paste(mr_dat$SNP, collapse=", "), "\n")
+
+# ==================== MR-PRESSO (Clean Run) ====================
+# Re-run on clean dataset to confirm no remaining pleiotropy
+results_clean <- mr_presso(BetaOutcome = "beta.outcome", BetaExposure = "beta.exposure",
+                           SdOutcome = "se.outcome", SdExposure = "se.exposure",
+                           OUTLIERtest = TRUE, DISTORTIONtest = TRUE, data = mr_dat,
+                           NbDistribution = length(mr_dat$SNP)/0.05, SignifThreshold = 0.05)
+
+cat("Post-removal PRESSO Global test p =", results_clean$`MR-PRESSO results`$`Global Test`$Pvalue, "\n")
 
 # ==================== Main MR Analysis ====================
 res <- mr(mr_dat, method_list = c(
