@@ -1,5 +1,5 @@
 # ================================================
-# African - COVID-19 Susceptibility (C2) vs AMI 
+# African - COVID-19 Infection (C2) vs AMI 
 # ================================================
 
 library(data.table)
@@ -20,7 +20,7 @@ rm(list = ls(all=TRUE))
 set.seed(123456)
 setwd("/Users/katherinezhou/desktop/COVID_GWAS")
 
-# Exposure: COVID-19 Susceptibility (C2) - African
+# Exposure: COVID-19 Infection (C2) - African
 exposure_raw <- fread("./COVID-19_AMI_All/COVID19_HGI_C2_ALL_afr_leave23andme_20220403.tsv.gz")
 head(exposure_raw)
 ncol(exposure_raw)
