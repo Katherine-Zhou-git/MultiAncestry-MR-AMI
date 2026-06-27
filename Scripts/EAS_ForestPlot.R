@@ -3,14 +3,14 @@ library(dplyr)
 library(patchwork)
 
 data_ea <- data.frame(
-  Phenotype = factor(rep(c("COVID-19 Susceptibility", "Hospitalized COVID-19", "Very Severe COVID-19"), each = 5),
-                     levels = c("COVID-19 Susceptibility", "Hospitalized COVID-19", "Very Severe COVID-19")),
+  Phenotype = factor(rep(c("COVID-19 Infection", "Hospitalized COVID-19", "Very Severe COVID-19"), each = 5),
+                     levels = c("COVID-19 Infection", "Hospitalized COVID-19", "Very Severe COVID-19")),
   
   Method = factor(rep(c("MR Egger", "Weighted Median", "IVW Fixed Effects", "IVW Random Effects", "Weighted Mode"), 3),
                   levels = rev(c("IVW Fixed Effects", "IVW Random Effects", "Weighted Median", "Weighted Mode", "MR Egger"))),
   
   OR = c(
-    # COVID-19 Susceptibility (C2) — 7 SNPs
+    # COVID-19 Infection (C2) — 7 SNPs
     0.8569, 0.9766, 0.9689, 0.9689, 1.0221,
     # Hospitalized COVID-19 (B2) — 9 SNPs
     1.0911, 0.9967, 0.9906, 0.9906, 1.0229,
@@ -19,7 +19,7 @@ data_ea <- data.frame(
   ),
   
   CI_lower = c(
-    # COVID-19 Susceptibility (C2)
+    # COVID-19 Infection (C2)
     0.6958, 0.8932, 0.9070, 0.9029, 0.8784,
     # Hospitalized COVID-19 (B2)
     0.9727, 0.9277, 0.9426, 0.9368, 0.9011,
@@ -28,7 +28,7 @@ data_ea <- data.frame(
   ),
   
   CI_upper = c(
-    # COVID-19 Susceptibility (C2)
+    # COVID-19 Infection (C2)
     1.0551, 1.0678, 1.0350, 1.0398, 1.1893,
     # Hospitalized COVID-19 (B2)
     1.2239, 1.0709, 1.0411, 1.0476, 1.1610,
@@ -37,7 +37,7 @@ data_ea <- data.frame(
   ),
   
   p_val = c(
-    # COVID-19 Susceptibility (C2)
+    # COVID-19 Infection (C2)
     0.2055, 0.6039, 0.3486, 0.3805, 0.7867,
     # Hospitalized COVID-19 (B2)
     0.1805, 0.9288, 0.7108, 0.7416, 0.7358,
@@ -46,7 +46,7 @@ data_ea <- data.frame(
   ),
   
   SNPs = c(
-    rep(7, 5),   # COVID-19 Susceptibility
+    rep(7, 5),   # COVID-19 Infection
     rep(9, 5),   # Hospitalized COVID-19
     rep(9, 5)    # Very Severe COVID-19
   )
@@ -100,7 +100,7 @@ p_forest <- ggplot(table_data, aes(x = OR, y = Method)) +
   geom_errorbarh(aes(xmin = CI_lower, xmax = CI_upper, color = Phenotype), height = 0.2, linewidth = 0.8) +
   geom_point(aes(color = Phenotype), size = 2.5) +
   facet_grid(Phenotype ~ ., scales = "free_y", space = "free_y") +
-  scale_color_manual(values = c("COVID-19 Susceptibility" = "blue",
+  scale_color_manual(values = c("COVID-19 Infection" = "blue",
                                 "Hospitalized COVID-19" = "blue",
                                 "Very Severe COVID-19" = "blue")) +
   scale_x_continuous(position = "bottom", breaks = seq(0.5, 2.5, by = 0.5)) +
