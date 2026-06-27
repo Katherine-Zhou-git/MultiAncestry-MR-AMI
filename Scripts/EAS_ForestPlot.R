@@ -138,5 +138,3 @@ final_figure <- p_pheno + p_method + p_forest + p_table +
   )
 
 print(final_figure)
-
-ggsave("./EAS_ForestPlot_Figure3.png", final_figure, width = 14, height = 8, dpi = 300)
