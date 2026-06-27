@@ -1,10 +1,9 @@
 # ================================================
-# East Asian - Very Severe COVID-19 (A2) vs AMI
+# East Asian - Very Severe COVID-19 (A2) vs AMI 
 # ================================================
 
 library(data.table)
 library(MendelianRandomization)
-library(MRPracticals)
 library(TwoSampleMR)
 library(LDlinkR)
 library(dplyr)
@@ -14,67 +13,47 @@ library(ieugwasr)
 library(genetics.binaRies)
 library(kableExtra)
 library(gt)
-library(phenoscanner)
 library(R.utils)
+library(MRPRESSO)
 
 rm(list = ls(all=TRUE))
 set.seed(123456)
 setwd("./COVID_GWAS")
 
-# ==================== Exposure: Very Severe COVID-19 (A2) - East Asian ====================
+# Exposure: Very Severe COVID-19 (A2) - East Asian
 exposure_raw <- fread("./COVID-19_AMI_All/COVID19_HGI_A2_ALL_eas_leave23andme_20220403.tsv.gz")
 exposure_c1 <- exposure_raw[, c(1,2,3,4,5,6,7,8,9,14,15)]
 colnames(exposure_c1) <- c("CHR","POS","other_allele.exposure","effect_allele.exposure",
-                          "SNP","N","beta.exposure","se.exposure","pval","eaf.exposure","rsid")
+                           "SNP","N","beta.exposure","se.exposure","pval","eaf.exposure","rsid")
 
-exposure_c1$exposure <- "Severe_COVID19_A2_EAS"
+exposure_c1$exposure <- "Very_Severe_COVID19_A2_EAS"
 exposure_c1$id.exposure <- "covid_a2_eas"
 exposure_c1$Z.exposure <- exposure_c1$beta.exposure / exposure_c1$se.exposure
-exposure_c1 <- filter(exposure_c1, pval < 5e-6)   # Lower threshold for non-European
+exposure_c1 <- filter(exposure_c1, pval < 5e-6)
 exposure_c1$F.exposure <- (exposure_c1$Z.exposure)^2
 
-# LD Clumping
-exposure_snps <- ld_clump(
-  dat = exposure_c1,
-  clump_kb = 10000,
-  clump_r2 = 0.001,
-  plink_bin = genetics.binaRies::get_plink_binary(),
-  bfile = "./EAS"
-)
+exposure_snps <- ld_clump(dat = exposure_c1, clump_kb = 10000, clump_r2 = 0.001,
+                          plink_bin = genetics.binaRies::get_plink_binary(), bfile = "./1kg.v3/EAS")
 
-# ==================== Outcome: AMI (East Asian) ====================
-outcome_raw <- fread("./COVID-19_AMI_All/GCST90018657.h.tsv.gz")
-outcome_ss1 <- outcome_raw[, c(1,2,3,4,5,6,7,8,12)]
+# Outcome
+outcome_raw <- fread("./GCST90018657.h.tsv.gz")
+outcome_ss1 <- outcome_raw[, c(1,2,3,4,5,6,7,8,9)]
 colnames(outcome_ss1) <- c("CHR","POS","effect_allele.outcome","other_allele.outcome",
-                          "beta.outcome","se.outcome","eaf.outcome","pval","rsid")
-
+                           "beta.outcome","se.outcome","eaf.outcome","pval","rsid")
 outcome_ss1$outcome <- "AMI"
 outcome_ss1$id.outcome <- "ami_eas"
 outcome_ss1$Z.outcome <- outcome_ss1$beta.outcome / outcome_ss1$se.outcome
 outcome_clumped <- outcome_ss1
 
-# ==================== Harmonise Data ====================
 mr_dat <- harmonise_data(
-  dplyr::tibble(
-    SNP = exposure_snps$rsid,
-    beta.exposure = exposure_snps$beta.exposure,
-    se.exposure = exposure_snps$se.exposure,
-    effect_allele.exposure = exposure_snps$effect_allele.exposure,
-    other_allele.exposure = exposure_snps$other_allele.exposure,
-    eaf.exposure = NA,
-    id.exposure = exposure_snps$id.exposure,
-    exposure = exposure_snps$exposure
-  ),
-  dplyr::tibble(
-    SNP = outcome_clumped$rsid,
-    beta.outcome = outcome_clumped$beta.outcome,
-    se.outcome = outcome_clumped$se.outcome,
-    effect_allele.outcome = outcome_clumped$effect_allele.outcome,
-    other_allele.outcome = outcome_clumped$other_allele.outcome,
-    eaf.outcome = NA,
-    outcome = outcome_clumped$outcome,
-    id.outcome = outcome_clumped$id.outcome
-  ),
+  dplyr::tibble(SNP = exposure_snps$rsid, beta.exposure = exposure_snps$beta.exposure,
+                se.exposure = exposure_snps$se.exposure, effect_allele.exposure = exposure_snps$effect_allele.exposure,
+                other_allele.exposure = exposure_snps$other_allele.exposure, eaf.exposure = NA,
+                id.exposure = exposure_snps$id.exposure, exposure = exposure_snps$exposure),
+  dplyr::tibble(SNP = outcome_clumped$rsid, beta.outcome = outcome_clumped$beta.outcome,
+                se.outcome = outcome_clumped$se.outcome, effect_allele.outcome = outcome_clumped$effect_allele.outcome,
+                other_allele.outcome = outcome_clumped$other_allele.outcome, eaf.outcome = NA,
+                outcome = outcome_clumped$outcome, id.outcome = outcome_clumped$id.outcome),
   action = 1
 )
 
@@ -100,13 +79,21 @@ res <- mr(mr_dat, method_list = c(
 
 # Save results
 odd <- generate_odds_ratios(res)
-write.csv(odd, "results/tables/EAS_A2_results.csv", row.names = FALSE)
+write.csv(odd, "./EAS_A2_results.csv", row.names = FALSE)
 
 # ==================== Plots ====================
-ggsave("results/figures/EAS_A2_scatter.png", mr_scatter_plot(res, mr_dat)[[1]], width = 8, height = 6)
-ggsave("results/figures/EAS_A2_forest.png", mr_forest_plot(mr_singlesnp(mr_dat))[[1]], width = 10, height = 8)
-ggsave("results/figures/EAS_A2_leaveoneout.png", mr_leaveoneout_plot(mr_leaveoneout(mr_dat))[[1]], width = 10, height = 8)
-ggsave("results/figures/EAS_A2_funnel.png", mr_funnel_plot(mr_singlesnp(mr_dat))[[1]], width = 8, height = 6)
+singlesnp_res <- mr_singlesnp(mr_dat, all_method = c(
+  "mr_egger_regression",
+  "mr_weighted_median",
+  "mr_ivw_fe",
+  "mr_ivw_mre",
+  "mr_weighted_mode"
+))
+
+ggsave("./EAS_A2_scatter.png", mr_scatter_plot(res, mr_dat)[[1]], width = 8, height = 6)
+ggsave("./EAS_A2_forest.png", mr_forest_plot(singlesnp_res)[[1]], width = 10, height = 8)
+ggsave("./EAS_A2_leaveoneout.png", mr_leaveoneout_plot(mr_leaveoneout(mr_dat))[[1]], width = 10, height = 8)
+ggsave("./EAS_A2_funnel.png", mr_funnel_plot(singlesnp_res)[[1]], width = 8, height = 6)
 
 # ==================== Sensitivity Tests ====================
 mr_heterogeneity(mr_dat)
