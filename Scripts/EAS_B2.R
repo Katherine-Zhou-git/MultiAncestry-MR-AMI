@@ -72,6 +72,17 @@ results <- mr_presso(BetaOutcome = "beta.outcome", BetaExposure = "beta.exposure
 
 cat("Global test p =", results$`MR-PRESSO results`$`Global Test`$Pvalue, "\n")
 
+# Remove MR-PRESSO outliers if global test significant
+outlier_indices <- results$`MR-PRESSO results`$`Distortion Test`$`Outliers Indices`
+
+if (!is.null(outlier_indices)) {
+  cat("Removing", length(outlier_indices), "outlier SNPs:", 
+      mr_dat$SNP[outlier_indices], "\n")
+  mr_dat <- mr_dat[-outlier_indices, ]
+} else {
+  cat("No outliers detected - proceeding with all SNPs\n")
+}
+
 # ==================== Main MR Analysis ====================
 res <- mr(mr_dat, method_list = c(
   "mr_egger_regression",
