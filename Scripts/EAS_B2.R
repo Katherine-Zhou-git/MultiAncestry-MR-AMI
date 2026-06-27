@@ -39,7 +39,6 @@ exposure_snps <- ld_clump(dat = exposure_c1, clump_kb = 10000, clump_r2 = 0.001,
 
 # Outcome
 outcome_raw <- fread("./GCST90018657.h.tsv.gz")
-head(outcome_raw)
 outcome_ss1 <- outcome_raw[, c(1,2,3,4,5,6,7,8,12)]
 colnames(outcome_ss1) <- c("CHR","POS","effect_allele.outcome","other_allele.outcome",
                            "beta.outcome","se.outcome","eaf.outcome","pval","rsid")
