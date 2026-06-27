@@ -19,7 +19,7 @@ Scatter, forest, leave-one-out, and funnel plots
 COVID19-AMI-MultiAncestry-MR/
 ├── README.md
 ├── requirements.R
-├── run_all.R
+├── Run_all.R
 ├── scripts/
 │   ├── AFR_A2.R
 │   ├── AFR_B2.R
