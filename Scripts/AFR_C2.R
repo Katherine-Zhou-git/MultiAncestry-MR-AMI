@@ -22,8 +22,6 @@ setwd("/Users/katherinezhou/desktop/COVID_GWAS")
 
 # Exposure: COVID-19 Infection (C2) - African
 exposure_raw <- fread("./COVID-19_AMI_All/COVID19_HGI_C2_ALL_afr_leave23andme_20220403.tsv.gz")
-head(exposure_raw)
-ncol(exposure_raw)
 exposure_c1 <- exposure_raw[, c(1,2,3,4,5,6,7,8,9,14,15)]
 colnames(exposure_c1) <- c("CHR","POS","other_allele.exposure","effect_allele.exposure",
                            "SNP","N","beta.exposure","se.exposure","pval","eaf.exposure","rsid")
@@ -41,9 +39,6 @@ exposure_snps <- filter(exposure_snps, F.exposure > 10)
 
 # Outcome
 outcome_raw <- fread("./GCST90473535.h.tsv.gz")
-head(outcome_raw)
-ncol(outcome_raw)
-colnames(outcome_raw)
 outcome_ss1 <- outcome_raw[, c(1,2,3,4,5,6,7,8,9)]
 colnames(outcome_ss1) <- c("CHR","POS","effect_allele.outcome","other_allele.outcome",
                            "beta.outcome","se.outcome","eaf.outcome","pval","rsid")
