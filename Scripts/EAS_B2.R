@@ -37,6 +37,8 @@ exposure_c1$F.exposure <- (exposure_c1$Z.exposure)^2
 exposure_snps <- ld_clump(dat = exposure_c1, clump_kb = 10000, clump_r2 = 0.001,
                           plink_bin = genetics.binaRies::get_plink_binary(), bfile = "./1kg.v3/EAS")
 
+exposure_snps <- filter(exposure_snps, F.exposure > 10)
+
 # Outcome
 outcome_raw <- fread("./GCST90018657.h.tsv.gz")
 outcome_ss1 <- outcome_raw[, c(1,2,3,4,5,6,7,8,12)]
