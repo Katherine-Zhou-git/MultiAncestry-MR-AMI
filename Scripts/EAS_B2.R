@@ -20,7 +20,7 @@ library(MRPRESSO)
 
 rm(list = ls(all=TRUE))
 set.seed(123456)
-setwd("/Users/katherinezhou/desktop/COVID_GWAS")
+setwd("./COVID_GWAS")
 
 # Exposure: Hospitalized COVID-19 (B2) - East Asian
 exposure_raw <- fread("./COVID-19_AMI_All/COVID19_HGI_B2_ALL_eas_leave23andme_20220403.tsv.gz")
