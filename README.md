@@ -37,7 +37,6 @@ COVID19-AMI-MultiAncestry-MR/
 │   ├── SAS_B2.R
 │   ├── SAS_C2.R
 │   └── SAS_ForestPlot.R
-├── summary_forest_plots.R
 └── .gitignore
 How to Run
 ```bash
