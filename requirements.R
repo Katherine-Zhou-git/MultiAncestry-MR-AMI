@@ -4,27 +4,34 @@
 
 cat("Installing required packages...\n\n")
 
+# Install devtools first (needed for GitHub installs)
+if (!requireNamespace("devtools", quietly = TRUE)) {
+  install.packages("devtools", repos = "https://cran.rstudio.com/", quiet = TRUE)
+}
+
 # CRAN packages
 cran_packages <- c(
   "data.table", "tidyverse", "dplyr", "ggplot2", "patchwork",
-  "kableExtra", "gt", "R.utils", "readr"
+  "kableExtra", "gt", "R.utils", "readr", "ieugwasr", "LDlinkR"
 )
-
 install.packages(cran_packages, repos = "https://cran.rstudio.com/", quiet = TRUE)
 
-# Bioconductor / MR-specific packages
+# Bioconductor
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
   install.packages("BiocManager", quiet = TRUE)
 }
+BiocManager::install("MendelianRandomization", update = FALSE, ask = FALSE, quiet = TRUE)
 
-BiocManager::install(c("TwoSampleMR", "MendelianRandomization"), 
-                     update = FALSE, ask = FALSE, quiet = TRUE)
-
-# Optional: MR-PRESSO (if not already installed)
+# GitHub packages
+if (!requireNamespace("TwoSampleMR", quietly = TRUE)) {
+  devtools::install_github("MRCIEU/TwoSampleMR")
+}
+if (!requireNamespace("genetics.binaRies", quietly = TRUE)) {
+  devtools::install_github("MRCIEU/genetics.binaRies")
+}
 if (!requireNamespace("MRPRESSO", quietly = TRUE)) {
   devtools::install_github("rondolab/MR-PRESSO")
 }
 
-cat("\n✅ All core packages installed successfully!\n")
-cat("You may need to manually install 'genetics.binaRies' and 'MRPracticals' if not available.\n")
+cat("\n All packages installed successfully!\n")
 cat("Make sure PLINK is installed and accessible for LD clumping.\n")
