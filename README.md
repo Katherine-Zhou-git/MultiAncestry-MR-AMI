@@ -21,22 +21,27 @@ COVID19-AMI-MultiAncestry-MR/
 ├── requirements.R
 ├── run_all.R
 ├── scripts/
-│   ├── EUR_A2.R
-│   ├── EUR_B2.R
-│   ├── EUR_C2.R
+│   ├── AFR_A2.R
+│   ├── AFR_B2.R
+│   ├── AFR_C2.R
+│   ├── AFR_ForestPlot.R
 │   ├── EAS_A2.R
 │   ├── EAS_B2.R
 │   ├── EAS_C2.R
+│   ├── EAS_ForestPlot.R
+│   ├── EUR_A2.R
+│   ├── EUR_B2.R
+│   ├── EUR_C2.R
+│   ├── EUR_ForestPlot.R
 │   ├── SAS_A2.R
 │   ├── SAS_B2.R
 │   ├── SAS_C2.R
-│   ├── AFR_A2.R
-│   ├── AFR_B2.R
-│   └── AFR_C2.R
+│   └── SAS_ForestPlot.R
 ├── summary_forest_plots.R
 └── .gitignore
 How to Run
-Bash# 1. Install required packages
+```bash
+# 1. Install required packages
 Rscript requirements.R
 
 # 2. Run all MR analyses
@@ -64,7 +69,7 @@ AMI GWAS: UK Biobank & Biobank Japan
 Analysis Details
 
 Exposure: Three COVID-19 phenotypes
-(A2: Very Severe, B2: Hospitalized, C2: Infected)
+(A2: Very Severe, B2: Hospitalized, C2: Infection)
 Outcome: Acute Myocardial Infarction (AMI)
 Methods: IVW (fixed/random), MR-Egger, Weighted Median, Weighted Mode, MR-PRESSO
 Sensitivity analyses: Heterogeneity, pleiotropy, leave-one-out, funnel plots
