@@ -44,7 +44,7 @@ COVID19-AMI-MultiAncestry-MR/
 └── .gitignore
 ```
 How to Run
-```bash
+
 # 1. Install required packages
 Rscript requirements.R
 
@@ -82,4 +82,3 @@ Citation
 If you use this code in your research, please cite the original manuscript (once published).
 License
 MIT License
-```
