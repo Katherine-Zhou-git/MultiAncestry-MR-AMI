@@ -42,6 +42,7 @@ COVID19-AMI-MultiAncestry-MR/
 │   ├── SAS_C2.R
 │   └── SAS_ForestPlot.R
 └── .gitignore
+```
 How to Run
 ```bash
 # 1. Install required packages
@@ -81,3 +82,4 @@ Citation
 If you use this code in your research, please cite the original manuscript (once published).
 License
 MIT License
+```
