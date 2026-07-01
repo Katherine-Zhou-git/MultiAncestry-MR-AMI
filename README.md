@@ -54,7 +54,7 @@ Rscript run_all.R
 # 3. Generate summary forest plots
 Rscript summary_forest_plots.R
 Requirements
-
+```bash
 R version ≥ 4.2.0
 PLINK (for LD clumping)
 Key R packages:
@@ -62,7 +62,7 @@ TwoSampleMR
 MendelianRandomization
 MRPRESSO (for outlier detection)
 data.table, tidyverse, ggplot2, patchwork, kableExtra
-
+```
 
 See requirements.R for automatic installation.
 Data Sources
@@ -71,14 +71,15 @@ COVID-19 GWAS: COVID-19 Host Genetics Initiative (HGI)
 AMI GWAS: UK Biobank & Biobank Japan
 
 Analysis Details
-
+```bash
 Exposure: Three COVID-19 phenotypes
 (A2: Very Severe, B2: Hospitalized, C2: Infection)
 Outcome: Acute Myocardial Infarction (AMI)
 Methods: IVW (fixed/random), MR-Egger, Weighted Median, Weighted Mode, MR-PRESSO
 Sensitivity analyses: Heterogeneity, pleiotropy, leave-one-out, funnel plots
-
+```
 Citation
 If you use this code in your research, please cite the original manuscript (once published).
+
 License
 MIT License
