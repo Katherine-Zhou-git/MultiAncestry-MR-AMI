@@ -64,6 +64,8 @@ mr_dat <- harmonise_data(
 mr_dat$outcome[mr_dat$outcome == "ami"] <- "AMI"
 mr_dat <- mr_dat[mr_dat$mr_keep == TRUE & mr_dat$palindromic != TRUE, ]
 
+write.csv(mr_dat, "./SAS_B2_mr_dat.csv", row.names = FALSE)
+
 # ==================== MR-PRESSO ====================
 results <- mr_presso(BetaOutcome = "beta.outcome", BetaExposure = "beta.exposure",
                      SdOutcome = "se.outcome", SdExposure = "se.exposure",
