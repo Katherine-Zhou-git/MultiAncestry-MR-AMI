@@ -1,4 +1,4 @@
-<img src="Figure 1 png.png" width="800"/>
+<img src="Figure 1 png.png" width="700"/>
 
 # Multi-Ancestry Mendelian Randomization: COVID-19 and Acute Myocardial Infarction (AMI)
 
