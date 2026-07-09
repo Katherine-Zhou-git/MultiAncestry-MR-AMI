@@ -1,8 +1,5 @@
 <img src="Figure 1 png.png" width="800"/>
 
-[Download full resolution PDF](Figure 1.pdf)
-
-
 # Multi-Ancestry Mendelian Randomization: COVID-19 and Acute Myocardial Infarction (AMI)
 
 This repository contains the R code for a **multi-ancestry two-sample Mendelian Randomization (MR)** study examining the causal relationship between COVID-19 phenotypes and acute myocardial infarction (AMI) across European, East Asian, South Asian, and African ancestries.
