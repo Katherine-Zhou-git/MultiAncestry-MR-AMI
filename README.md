@@ -1,5 +1,6 @@
-<img width="314" height="519" alt="Overview" src="https://github.com/user-attachments/assets/3d7b8e81-ff75-45a8-9467-bbfdd50c552d" />
+<img src="Figure 1 png.png" width="800"/>
 
+[Download full resolution PDF](Figure 1.pdf)
 
 
 # Multi-Ancestry Mendelian Randomization: COVID-19 and Acute Myocardial Infarction (AMI)
